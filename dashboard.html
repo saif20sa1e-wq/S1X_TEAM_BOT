@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Panel</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="panel">
+<h2>Level Panel</h2>
+
+<input id="uid" placeholder="User ID">
+<input id="hours" type="number" placeholder="Hours">
+<button onclick="start()">Start</button>
+
+<div class="box">
+<p>Level: <span id="level">-</span></p>
+<p>XP: <span id="xp">-</span></p>
+<p>Status: <span id="status">-</span></p>
+<div class="progress">
+<div id="bar"></div>
+</div>
+<p>Remaining: <span id="time">-</span> sec</p>
+</div>
+</div>
+
+<script>
+let userId = ""
+
+function start() {
+    userId = document.getElementById("uid").value
+    let hours = document.getElementById("hours").value
+
+    fetch("/start", {
+        method: "POST",
+        body: new URLSearchParams({user_id:userId, hours:hours})
+    })
+
+    setInterval(update, 1000)
+}
+
+function update() {
+    fetch("/status/" + userId)
+    .then(r => r.json())
+    .then(d => {
+        if(!d.level) return
+        document.getElementById("level").innerText = d.level
+        document.getElementById("xp").innerText = d.xp
+        document.getElementById("status").innerText = d.status
+        document.getElementById("time").innerText = d.remaining
+        document.getElementById("bar").style.width = d.progress + "%"
+    })
+}
+</script>
+
+</body>
+</html>
