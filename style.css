@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: black;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* خلفية متحركة */
+.bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, orange, black);
+  animation: move 6s infinite alternate;
+  z-index: -1;
+}
+@keyframes move {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(80deg); }
+}
+
+.cover {
+  height: 320px;
+  background: url("cover.jpg") center/cover no-repeat;
+  position: relative;
+}
+
+.profile {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  border: 5px solid orange;
+  position: absolute;
+  bottom: -85px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.info {
+  margin-top: 100px;
+  padding: 20px;
+}
+
+h1 {
+  color: orange;
+  letter-spacing: 3px;
+}
+
+button {
+  background: orange;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.buttons a {
+  display: inline-block;
+  margin: 10px;
+  padding: 14px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.yt { background: linear-gradient(45deg, red, darkred); }
+.tg { background: linear-gradient(45deg, #0088cc, #005f99); }
+.wa { background: linear-gradient(45deg, #25D366, #128C7E); }
+
+.counter {
+  margin-top: 20px;
+  font-size: 18px;
+}
