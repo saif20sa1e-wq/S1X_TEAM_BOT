@@ -172,6 +172,27 @@ def like_handler():
 def home():
     return jsonify({"status": "online", "message": "Like API is running ✅"})
 
+@app.route('/accounts')
+def accounts_status():
+    accounts = load_accounts()
+
+    try:
+        tokens = asyncio.run(get_tokens_live())
+
+        return jsonify({
+            "TotalAccounts": len(accounts),
+            "WorkingAccounts": len(tokens),
+            "Status": "online"
+        })
+
+    except Exception as e:
+        return jsonify({
+            "TotalAccounts": len(accounts),
+            "WorkingAccounts": 0,
+            "Status": "error",
+            "Error": str(e)
+        }), 500
+
 # ✅ هذا لا يُستخدم في Vercel ولكن نتركه للتشغيل المحلي
 if __name__ == "__main__":
     import os
