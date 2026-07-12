@@ -171,5 +171,9 @@ def home():
     return jsonify({"status": "online", "message": "Like API is running ✅"})
 
 # ✅ هذا لا يُستخدم في Vercel ولكن نتركه للتشغيل المحلي
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000)
+if __name__ == "__main__":
+    import os
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8080))
+    )
