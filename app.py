@@ -24,14 +24,16 @@ async def fetch_token(session, uid, password):
 
     try:
         async with session.get(url, timeout=10) as res:
-            if res.status == 200:
-                data = await res.json()
+            print("UID:", uid, "STATUS:", res.status)
 
-                if data.get("status") == "success":
-                    return data.get("token")
+            data = await res.json()
+            print("RESPONSE:", data)
 
-    except Exception:
-        return None
+            if data.get("status") == "success":
+                return data.get("token")
+
+    except Exception as e:
+        print("ERROR:", uid, e)
 
     return None
 
